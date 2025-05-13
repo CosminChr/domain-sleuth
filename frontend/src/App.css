@@ -291,6 +291,7 @@
     gap: 8px;
 }
 
+/* Removed purple line
 .scan-list-header h2::before {
     content: '';
     display: inline-block;
@@ -298,7 +299,7 @@
     height: 16px;
     background: var(--primary-gradient);
     border-radius: 2px;
-}
+}*/
 
 .scan-list-search {
     margin-bottom: 16px;
