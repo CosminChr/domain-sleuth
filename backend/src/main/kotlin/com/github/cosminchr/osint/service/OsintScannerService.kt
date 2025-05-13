@@ -374,7 +374,7 @@ class OsintScannerService @Autowired constructor(
                     }
                 }
                 // Handle CNAME records
-                logLine.contains("--> cname -->", ignoreCase = true) -> {
+                logLine.contains("--> cname_record -->", ignoreCase = true) -> {
                     val parts = logLine.split("-->").map { it.trim() }
                     if (parts.size >= 3) {
                         val cnameSource = extractFqdnOrIp(parts[0])
