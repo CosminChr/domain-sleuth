@@ -26,6 +26,9 @@ data class FindingEntity(
     @Column // Allow null if IP address might not always be present or applicable
     val ipAddress: String? = null,
 
+    @Column // CNAME value for CNAME record types
+    val cnameValue: String? = null,
+
     @Column(nullable = false)
     val createdAt: LocalDateTime = LocalDateTime.now()
 ) {
@@ -39,6 +42,7 @@ data class FindingEntity(
         if (type != other.type) return false
         if (value != other.value) return false
         if (ipAddress != other.ipAddress) return false
+        if (cnameValue != other.cnameValue) return false
 
         return true
     }
@@ -48,11 +52,12 @@ data class FindingEntity(
         result = 31 * result + type.hashCode()
         result = 31 * result + value.hashCode()
         result = 31 * result + (ipAddress?.hashCode() ?: 0)
+        result = 31 * result + (cnameValue?.hashCode() ?: 0)
         return result
     }
 
     // Avoid circular references in toString
     override fun toString(): String {
-        return "FindingEntity(id=$id, scanId=${scan?.id}, type='$type', value='$value', ipAddress='$ipAddress', createdAt=$createdAt)"
+        return "FindingEntity(id=$id, scanId=${scan?.id}, type='$type', value='$value', ipAddress='$ipAddress', cnameValue='$cnameValue', createdAt=$createdAt)"
     }
 }

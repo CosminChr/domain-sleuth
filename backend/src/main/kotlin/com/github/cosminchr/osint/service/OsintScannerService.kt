@@ -180,7 +180,8 @@ class OsintScannerService @Autowired constructor(
                         scan = scanEntity,
                         type = finding.type,
                         value = finding.value,
-                        ipAddress = finding.ipAddress
+                        ipAddress = finding.ipAddress,
+                        cnameValue = finding.cnameValue
                     )
                 }
                 if (findingEntities.isNotEmpty()) {
@@ -372,6 +373,18 @@ class OsintScannerService @Autowired constructor(
                         }
                     }
                 }
+                // Handle CNAME records
+                logLine.contains("--> cname -->", ignoreCase = true) -> {
+                    val parts = logLine.split("-->").map { it.trim() }
+                    if (parts.size >= 3) {
+                        val cnameSource = extractFqdnOrIp(parts[0])
+                        val cnameTarget = extractFqdnOrIp(parts[2])
+                        if (cnameSource.isNotBlank() && cnameTarget.isNotBlank()) {
+                            findings.add(Finding(value = cnameSource, type = "cname", ipAddress = null, cnameValue = cnameTarget))
+                            logger.info("Added CNAME: $cnameSource points to $cnameTarget")
+                        }
+                    }
+                }
                 // Handle lines that are just FQDNs, likely subdomains
                 fqdnRegex.matches(logLine.trim()) -> {
                     val subdomain = logLine.trim()
@@ -405,6 +418,7 @@ class OsintScannerService @Autowired constructor(
         val subdomains = findings.filter { it.type == "subdomain" }
         val nameservers = findings.filter { it.type == "nameserver" }
         val mxRecords = findings.filter { it.type == "mx_record" }
+        val cnameRecords = findings.filter { it.type == "cname" }
         val errors = findings.filter { it.type == "error" }
 
         return buildList {
@@ -412,6 +426,7 @@ class OsintScannerService @Autowired constructor(
             add("- ${subdomains.size} subdomains")
             add("- ${nameservers.size} nameservers")
             add("- ${mxRecords.size} MX records")
+            add("- ${cnameRecords.size} CNAME records")
             if (errors.isNotEmpty()) {
                 add("Scan also reported ${errors.size} errors/warnings:")
                 errors.take(3).forEach { error -> add("  - ${error.value.take(150)}") }

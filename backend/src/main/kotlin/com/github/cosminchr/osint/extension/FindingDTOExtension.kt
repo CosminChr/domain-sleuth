@@ -9,7 +9,8 @@ fun FindingEntity.toDto(): FindingDTO {
         scanId = this.scan?.id ?: 0,
         type = this.type,
         value = this.value,
-        ipAddress  = this.ipAddress,
+        ipAddress = this.ipAddress,
+        cnameValue = this.cnameValue,
         createdAt = this.createdAt
     )
 }

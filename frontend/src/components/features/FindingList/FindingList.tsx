@@ -19,6 +19,7 @@ const FindingList: React.FC<FindingListProps> = ({ scanId }) => {
         subdomain: 0,
         nameserver: 0,
         mx_record: 0,
+        cname: 0,
         result: 0,
     });
 
@@ -31,11 +32,12 @@ const FindingList: React.FC<FindingListProps> = ({ scanId }) => {
                 setFindings(data);
 
                 // Calculate counts based on the remaining types
-                const counts: FindingCounts = { total: data.length, subdomain: 0, nameserver: 0, mx_record: 0, result: 0 };
+                const counts: FindingCounts = { total: data.length, subdomain: 0, nameserver: 0, mx_record: 0, cname: 0, result: 0 };
                 data.forEach((finding: Finding) => {
                     if (finding.type === FindingType.SUBDOMAIN) counts.subdomain++;
                     else if (finding.type === FindingType.NAMESERVER) counts.nameserver++;
                     else if (finding.type === FindingType.MX_RECORD) counts.mx_record++;
+                    else if (finding.type === FindingType.CNAME) counts.cname++;
                     else if (finding.type === FindingType.RESULT) counts.result++;
                 });
                 setFindingCounts(counts);
@@ -59,7 +61,8 @@ const FindingList: React.FC<FindingListProps> = ({ scanId }) => {
             const matchesSearch = searchTerm
                 ? finding.value.toLowerCase().includes(searchTerm.toLowerCase()) ||
                 finding.type.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                (finding.ipAddress?.toLowerCase() || '').includes(searchTerm.toLowerCase()) // Include IP address in search
+                (finding.ipAddress?.toLowerCase() || '').includes(searchTerm.toLowerCase()) ||
+                (finding.cnameValue?.toLowerCase() || '').includes(searchTerm.toLowerCase()) // Include CNAME value in search
                 : true;
             return matchesType && matchesSearch;
         });
@@ -77,6 +80,8 @@ const FindingList: React.FC<FindingListProps> = ({ scanId }) => {
                 return 'finding-type-nameserver';
             case FindingType.MX_RECORD:
                 return 'finding-type-mx_record';
+            case FindingType.CNAME:
+                return 'finding-type-cname';
             case FindingType.RESULT:
                 return 'finding-type-result';
             default:
@@ -122,6 +127,12 @@ const FindingList: React.FC<FindingListProps> = ({ scanId }) => {
                         MX Records ({findingCounts.mx_record})
                     </button>
                     <button
+                        className={`type-button ${activeFilterType === FindingType.CNAME ? 'active' : ''}`}
+                        onClick={() => setActiveFilterType(FindingType.CNAME)}
+                    >
+                        CNAME Records ({findingCounts.cname})
+                    </button>
+                    <button
                         className={`type-button ${activeFilterType === FindingType.RESULT ? 'active' : ''}`}
                         onClick={() => setActiveFilterType(FindingType.RESULT)}
                     >
@@ -133,7 +144,7 @@ const FindingList: React.FC<FindingListProps> = ({ scanId }) => {
             <div className="finding-search">
                 <input
                     type="text"
-                    placeholder="Search findings by value, type, or IP Address..." // Updated placeholder
+                    placeholder="Search findings by name, value, type, or IP Address..." // Updated placeholder
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
@@ -149,6 +160,7 @@ const FindingList: React.FC<FindingListProps> = ({ scanId }) => {
                         <thead>
                         <tr>
                             <th>Type</th>
+                            <th>Name</th>
                             <th>Value</th>
                             <th>IP Address</th>
                             <th>Discovered</th>
@@ -163,6 +175,7 @@ const FindingList: React.FC<FindingListProps> = ({ scanId }) => {
                                         </span>
                                 </td>
                                 <td className="finding-value">{finding.value}</td>
+                                <td className="finding-cname-value">{finding.type === FindingType.CNAME ? finding.cnameValue : 'N/A'}</td>
                                 <td className="finding-ip-address">{finding.ipAddress || 'N/A'}</td>
                                 <td className="finding-date">{formatDate(finding.createdAt)}</td>
                             </tr>

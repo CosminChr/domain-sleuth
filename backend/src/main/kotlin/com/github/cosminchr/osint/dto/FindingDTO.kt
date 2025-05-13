@@ -8,5 +8,6 @@ data class FindingDTO(
     val type: String,
     val value: String,
     val ipAddress: String?,
+    val cnameValue: String?,
     val createdAt: LocalDateTime?
 )

@@ -164,6 +164,11 @@
     color: #e65100;
 }
 
+.finding-type-cname .finding-type {
+    background-color: #f3e5f5;
+    color: #9c27b0;
+}
+
 .finding-type-result .finding-type {
     background-color: #e8eaf6;
     color: #3f51b5;
@@ -175,7 +180,7 @@
     color: #343a40;
 }
 
-.finding-ip-address {
+.finding-ip-address, .finding-cname-value {
     font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
     color: #343a40;
     word-break: break-all;
