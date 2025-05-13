@@ -117,20 +117,10 @@ The backend exposes the following RESTful API endpoints:
 The application uses Docker in two ways:
 
 1. As a runtime environment for the application itself (via Docker Compose)
-2. As a tool for running TheHarvester OSINT scans in isolated containers
+2. As a tool for running Amass OSINT scans in isolated containers
 
 The backend application needs access to the Docker socket to create and manage scan containers.
-
-## Security Considerations
-
-- The backend container requires access to the Docker socket, which is a security consideration for production deployments
-- Consider using volume mounts for persistent data storage in production
-- Implement rate limiting and authentication for production use
 
 ## License
 
 [MIT License](LICENSE)
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.

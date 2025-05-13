@@ -26,7 +26,7 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    image: osint-backend
+    image: cosminch/domain-sleuth-backend
     container_name: osint-backend
     ports:
       - "8080:8080"
@@ -50,7 +50,7 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    image: osint-frontend
+    image: cosminch/domain-sleuth-frontend
     container_name: osint-frontend
     ports:
       - "5173:5173"
