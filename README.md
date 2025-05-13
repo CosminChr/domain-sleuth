@@ -1,13 +1,13 @@
 # Domain Sleuth - OSINT Domain Scanner
 
-Domain Sleuth is a web application that leverages Docker and TheHarvester to perform OSINT (Open Source Intelligence) scans on domain names. It helps security researchers and professionals gather publicly available information about domains such as email addresses, hostnames, and IP addresses.
+Domain Sleuth is a web application that leverages Docker and Amass to perform OSINT (Open Source Intelligence) scans on domain names. It helps security researchers and professionals gather publicly available information about domains such as email addresses, hostnames, and IP addresses.
 
 ![Domain Sleuth Screenshot](assets/App%20screenshot.png)
 
 ## Features
 
 - Simple, user-friendly web interface
-- Docker-based scanning with TheHarvester
+- Docker-based scanning with Amass
 - Real-time scan status updates (only for active scans)
 - Persistent history of previous scans
 - Detailed results view with parsed findings
