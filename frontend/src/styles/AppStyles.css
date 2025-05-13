@@ -1,0 +1,111 @@
+.app-sidebar {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    padding: 15px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+
+.sidebar-section {
+    margin-bottom: 20px;
+}
+
+.sidebar-section h3 {
+    color: #28a745;
+    margin-top: 0;
+    margin-bottom: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+/* Button styling */
+.sidebar-button,
+.filter-button,
+.nav-button,
+.create-scan-button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 16px;
+    font-size: 0.9rem;
+    margin: 5px 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 6px rgba(40, 167, 69, 0.3);
+    width: 100%;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+}
+
+.sidebar-button:hover,
+.filter-button:hover,
+.nav-button:hover,
+.create-scan-button:hover {
+    background-color: #218838;
+    box-shadow: 0 4px 10px rgba(40, 167, 69, 0.4);
+    transform: translateY(-2px);
+}
+
+.sidebar-button.active,
+.filter-button.active,
+.nav-button.active {
+    background-color: #218838;
+    font-weight: 600;
+}
+
+/* Count badges */
+.filter-count,
+.scan-count {
+    background-color: rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    margin-left: auto;
+}
+
+/* Scan item styling */
+.scan-item {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid #eee;
+    margin-bottom: 8px;
+}
+
+.scan-item:hover {
+    background-color: #f1f3f5;
+    border-color: #28a745;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(40, 167, 69, 0.15);
+}
+
+.scan-item.active {
+    background-color: #e9f7ef;
+    border-color: #28a745;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .app-sidebar {
+        padding: 12px;
+        margin-right: 0;
+    }
+
+    .sidebar-button,
+    .filter-button,
+    .nav-button,
+    .create-scan-button {
+        padding: 8px 12px;
+        font-size: 0.85rem;
+    }
+}

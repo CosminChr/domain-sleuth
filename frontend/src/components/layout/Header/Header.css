@@ -1,0 +1,32 @@
+.app-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #4a9edb;
+    color: white;
+    padding: 0.2rem 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    min-height: 30px;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+}
+
+.app-title {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: white;
+}
+
+@media (max-width: 600px) {
+    .app-header {
+        padding: 0.2rem 0.8rem;
+    }
+
+    .app-title {
+        font-size: 1.2rem;
+    }
+}

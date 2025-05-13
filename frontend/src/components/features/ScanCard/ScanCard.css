@@ -1,0 +1,117 @@
+.scan-card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e2e8f0;
+    margin-bottom: 12px;
+    padding: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.scan-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    transform: translateY(-1px);
+}
+
+.scan-card.selected {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.3);
+}
+
+.scan-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.domain-name {
+    font-weight: 600;
+    font-size: 15px;
+    color: #1e293b;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 70%;
+}
+
+.scan-status {
+    font-size: 12px;
+    font-weight: 500;
+    padding: 3px 8px;
+    border-radius: 12px;
+}
+
+.status-pending {
+    background-color: #f1f5f9;
+    color: #64748b;
+}
+
+.status-in-progress {
+    background-color: #eff6ff;
+    color: #3b82f6;
+}
+
+.status-completed {
+    background-color: #ecfdf5;
+    color: #10b981;
+}
+
+.status-failed {
+    background-color: #fef2f2;
+    color: #ef4444;
+}
+
+.scan-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 10px;
+}
+
+.scan-info {
+    display: flex;
+    font-size: 13px;
+    color: #64748b;
+}
+
+.info-label {
+    flex: 0 0 60px;
+    color: #94a3b8;
+}
+
+.info-value {
+    color: #475569;
+}
+
+.scan-info.error {
+    color: #ef4444;
+    background-color: #fef2f2;
+    padding: 6px 8px;
+    border-radius: 4px;
+    margin-top: 4px;
+}
+
+.scan-card-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 8px;
+}
+
+.delete-button {
+    background-color: transparent;
+    color: #ef4444;
+    border: 1px solid #ef4444;
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.delete-button:hover {
+    background-color: #fef2f2;
+}

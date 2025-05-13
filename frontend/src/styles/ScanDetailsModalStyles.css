@@ -1,0 +1,51 @@
+.scan-details-modal {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.scan-details-modal h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+
+.scan-details-modal h4 {
+    margin-top: 15px;
+    margin-bottom: 8px;
+}
+
+.scan-details-modal p {
+    margin: 5px 0;
+    line-height: 1.4;
+}
+
+.findings-list {
+  list-style: none; /* Remove default bullets */
+  padding-left: 0;
+  margin-top: 0;
+  max-height: 40vh; /* Limit height of findings list */
+  overflow-y: auto; /* Allow scrolling within the list */
+  border: 1px solid #eee;
+  border-radius: 4px;
+  background-color: #fdfdfd;
+}
+
+.findings-list li {
+  padding: 8px 12px;
+  border-bottom: 1px solid #eee;
+  font-family: monospace;
+  font-size: 0.9rem;
+  word-break: break-all;
+}
+
+.findings-list li:last-child {
+  border-bottom: none;
+}
+
+.scan-details-modal .error {
+    color: #d9534f;
+    font-weight: bold;
+    margin-top: 10px;
+}

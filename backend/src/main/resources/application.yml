@@ -1,0 +1,42 @@
+# Server configuration
+server:
+  port: 8080
+
+# Spring Boot configuration
+spring:
+  # PostgreSQL Database
+  datasource:
+    url: jdbc:postgresql://postgres:5432/osintdb
+    username: osintuser
+    password: osintpassword
+    driver-class-name: org.postgresql.Driver
+
+  # JPA/Hibernate configuration
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true # Log SQL statements
+    hibernate:
+      ddl-auto: update # Automatically update schema
+
+  # Jackson JSON configuration
+  jackson:
+    serialization:
+      fail-on-empty-beans: false # Allow serialization of beans without properties
+
+  # Async Task Executor configuration
+  task:
+    execution:
+      pool:
+        core-size: 5
+        max-size: 10
+        queue-capacity: 25
+      thread-name-prefix: async-task-
+
+# Application configuration
+app:
+  docker:
+    amass-image: caffix/amass
+
+  # CORS configuration
+  cors:
+    allowed-origins: http://localhost:5173,http://localhost:8080,http://localhost,http://frontend:5173,http://127.0.0.1:5173

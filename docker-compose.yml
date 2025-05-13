@@ -1,0 +1,78 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: osint-postgres
+    environment:
+      POSTGRES_DB: osintdb
+      POSTGRES_USER: osintuser
+      POSTGRES_PASSWORD: osintpassword
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U osintuser -d osintdb"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - osint-network
+    labels:
+      - "com.github.cosminchr.osint=true"
+      - "com.github.cosminchr.osint.component=database"
+      - "com.github.cosminchr.osint.project=domain-sleuth"
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    image: osint-backend
+    container_name: osint-backend
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/osintdb
+      - SPRING_DATASOURCE_USERNAME=osintuser
+      - SPRING_DATASOURCE_PASSWORD=osintpassword
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - osint-network
+    labels:
+      - "com.github.cosminchr.osint=true"
+      - "com.github.cosminchr.osint.component=backend"
+      - "com.github.cosminchr.osint.project=domain-sleuth"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    image: osint-frontend
+    container_name: osint-frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+    networks:
+      - osint-network
+    labels:
+      - "com.github.cosminchr.osint=true"
+      - "com.github.cosminchr.osint.component=frontend"
+      - "com.github.cosminchr.osint.project=domain-sleuth"
+
+networks:
+  osint-network:
+    driver: bridge
+    labels:
+      - "com.github.cosminchr.osint=true"
+      - "com.github.cosminchr.osint.project=domain-sleuth"
+
+volumes:
+  postgres-data:
+    driver: local
+    labels:
+      - "com.github.cosminchr.osint=true"
+      - "com.github.cosminchr.osint.project=domain-sleuth"
